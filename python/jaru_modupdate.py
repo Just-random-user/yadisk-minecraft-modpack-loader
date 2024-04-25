@@ -19,14 +19,7 @@ def find_diff(curr_mods, needed_mods):
     return mod_difference
 
 def _main(yadisk_key, yadisk_mod_path, mod_amount_limit=300):
-    if platform.system() == 'Linux':
-        mcdir = os.path.expanduser('~/.minecraft')
-    elif platform.system() == 'Windows':
-        mcdir = os.path.join(os.getenv('APPDATA'), '.minecraft')
-    else:
-        print('This platform is not supported!')
-        return
-    
+    mcdir = utils.get_minecraft_directory()
     moddir = os.path.join(mcdir, 'mods')    
     resources_url = 'https://cloud-api.yandex.net/v1/disk/public/resources?'
     download_url = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?'

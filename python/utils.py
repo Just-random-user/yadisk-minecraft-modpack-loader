@@ -1,9 +1,26 @@
 import os
+import platform
 import shutil
 import requests
 import zipfile
 import json
 from urllib.parse import urlencode
+
+def get_minecraft_directory():
+    with open('../config.json') as config:
+        json_cfg = config.read()
+        config = json.loads(json_cfg)
+        custom_directory = config['useCustomMinecraftPath']
+    if custom_directory != '':
+        return custom_directory
+    
+    if platform.system() == 'Linux':
+        mcdir = os.path.expanduser('~/.minecraft')
+    elif platform.system() == 'Windows':
+        mcdir = os.path.join(os.getenv('APPDATA'), '.minecraft')
+    else:
+        raise Exception('This platform is not supported!')
+    return mcdir
 
 def get_file_list(dir):
     current_mods = tuple(file for file in os.listdir(dir))

@@ -1,5 +1,4 @@
 import os
-import platform
 import utils
 import shutil
 import sys
@@ -12,14 +11,7 @@ def analyze(curr_files, needed_files):
     return already_exist
 
 def _main(yadisk_key, yadisk_main_path, mod_amount_limit=300):
-    if platform.system() == 'Linux':
-        mcdir = os.path.expanduser('~/.minecraft')
-    elif platform.system() == 'Windows':
-        mcdir = os.path.join(os.getenv('APPDATA'), '.minecraft')
-    else:
-        print('This platform is not supported!')
-        return
-
+    mcdir = utils.get_minecraft_directory()
     temp_directory = os.path.join(mcdir, 'jaru_temp_dir')
     resources_url = 'https://cloud-api.yandex.net/v1/disk/public/resources?'
     download_url = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?'
