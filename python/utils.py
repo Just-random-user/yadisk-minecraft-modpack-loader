@@ -7,7 +7,8 @@ import json
 from urllib.parse import urlencode
 
 def get_minecraft_directory():
-    with open('../config.json') as config:
+    config_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+    with open(os.path.join(config_dir, 'config.json')) as config:
         json_cfg = config.read()
         config = json.loads(json_cfg)
         custom_directory = config['useCustomMinecraftPath']
